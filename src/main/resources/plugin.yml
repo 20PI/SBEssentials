@@ -1,4 +1,7 @@
 name: SBEssentials
 version: '${project.version}'
-main: pye.twenty.sbessentials.SBEssentials
+main: pye.twenty.sbessentials.SBEssentialsPlugin
 api-version: '1.20'
+commands:
+  test:
+    description: test

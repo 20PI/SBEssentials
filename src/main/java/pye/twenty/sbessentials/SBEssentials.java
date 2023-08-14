@@ -1,17 +1,27 @@
 package pye.twenty.sbessentials;
 
-import org.bukkit.plugin.java.JavaPlugin;
+import lombok.Getter;
+import pye.twenty.sbessentials.command.Command;
+import pye.twenty.sbessentials.command.impl.TestCommand;
 
-public final class SBEssentials extends JavaPlugin {
+@Getter
+public enum SBEssentials {
 
-    @Override
-    public void onEnable() {
-        // Plugin startup logic
+    INSTANCE;
 
+    private SBEssentialsPlugin plugin;
+
+    public void initialize(SBEssentialsPlugin plugin) {
+        this.plugin = plugin;
+        registerCommands();
     }
 
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
+    private void registerCommands() {
+       addCommand("test", new TestCommand());
+    }
+
+    private void addCommand(String command, Command executor) {
+        INSTANCE.getPlugin().getCommand(command).setExecutor(executor);
+        INSTANCE.getPlugin().getCommand(command).setTabCompleter(executor);
     }
 }
