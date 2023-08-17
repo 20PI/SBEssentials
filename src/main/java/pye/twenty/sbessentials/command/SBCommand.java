@@ -8,15 +8,15 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public abstract class Command implements CommandExecutor, TabCompleter {
+public abstract class SBCommand implements CommandExecutor, TabCompleter {
 
     private final Map<String, SubCommand> commands = new HashMap<>();
 
-    protected Command() {
+    protected SBCommand() {
 
     }
 
-    protected Command(SubCommand... subCommands) {
+    protected SBCommand(SubCommand... subCommands) {
         for (SubCommand command : subCommands) {
             commands.put(command.getCommand(), command);
         }
