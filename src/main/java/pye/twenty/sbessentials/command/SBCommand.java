@@ -18,7 +18,7 @@ public abstract class SBCommand implements CommandExecutor, TabCompleter {
 
     protected SBCommand(SubCommand... subCommands) {
         for (SubCommand command : subCommands) {
-            commands.put(command.getCommand(), command);
+            commands.put(command.getCommand().toLowerCase(), command);
         }
     }
 
@@ -51,6 +51,8 @@ public abstract class SBCommand implements CommandExecutor, TabCompleter {
     public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, org.bukkit.command.@NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (args.length == 1) {
             return new ArrayList<>(commands.keySet());
+        } else if (commands.containsKey(s)) {
+            return List.of(commands.get(s).getAutocomplete());
         }
         return null;
     }

@@ -19,4 +19,8 @@ public abstract class SubCommand {
     public boolean canExecute(String[] args) {
         return args.length >= 1 + requiredArgs;
     }
+
+    public String[] getAutocomplete() {
+        return new String[0];
+    }
 }
