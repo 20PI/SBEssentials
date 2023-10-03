@@ -22,6 +22,10 @@ public abstract class GUI {
     protected Inventory inventory;
 
     public void open(Player player) {
+        open(player, label);
+    }
+
+    public void open(Player player, String label) {
         this.player = player;
         inventory = Bukkit.createInventory(null, size, Component.text(label));
         initialize();
