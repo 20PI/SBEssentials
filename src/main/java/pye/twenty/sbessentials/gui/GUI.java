@@ -34,10 +34,23 @@ public abstract class GUI {
 
     protected abstract void initialize();
 
+    protected void addSlot(ItemStack stack) {
+        inventory.setItem(inventory.firstEmpty(), stack);
+    }
+
+    protected void addSlot(int slot, ItemStack stack) {
+        inventory.setItem(slot, stack);
+    }
+
+    protected void addSlot(ItemStack stack, SlotAction action) {
+        addSlot(inventory.firstEmpty(), stack, action);
+    }
+
     protected void addSlot(int slot, ItemStack stack, SlotAction action) {
         inventory.setItem(slot, stack);
         actionMap.put(slot, action);
     }
+
 
     public void onInventoryClick(InventoryClickEvent event) {
         if (inventory != null && event.getInventory().equals(inventory)) {
