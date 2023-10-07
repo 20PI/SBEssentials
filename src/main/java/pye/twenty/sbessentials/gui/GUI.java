@@ -34,6 +34,12 @@ public abstract class GUI {
 
     protected abstract void initialize();
 
+    public void reopen() {
+        this.actionMap.clear();
+        this.inventory.clear();
+        initialize();
+    }
+
     protected void addSlot(ItemStack stack) {
         inventory.setItem(inventory.firstEmpty(), stack);
     }
