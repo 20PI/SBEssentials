@@ -1,5 +1,6 @@
 package pye.twenty.sbessentials;
 
+import com.github.retrooper.packetevents.PacketEvents;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -8,6 +9,7 @@ import pye.twenty.sbessentials.command.impl.TestCommand;
 import pye.twenty.sbessentials.gui.GUI;
 import pye.twenty.sbessentials.listener.InventoryListener;
 import pye.twenty.sbessentials.listener.QuitListener;
+import pye.twenty.sbessentials.listener.SignPacketListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,9 +26,11 @@ public enum SBEssentials {
 
     public void initialize(SBEssentialsPlugin plugin) {
         this.plugin = plugin;
-
         registerListeners();
         registerCommands();
+
+        PacketEvents.getAPI().getEventManager().registerListener(new SignPacketListener());
+        PacketEvents.getAPI().init();
     }
 
     private void registerCommands() {
