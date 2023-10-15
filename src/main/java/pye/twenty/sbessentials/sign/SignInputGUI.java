@@ -3,8 +3,14 @@ package pye.twenty.sbessentials.sign;
 import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.util.Vector3i;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerOpenSignEditor;
+import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.Sign;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.sign.Side;
+import org.bukkit.block.sign.SignSide;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
@@ -30,14 +36,23 @@ public class SignInputGUI {
         Location playerLocation = player.getLocation();
         Vector direction = playerLocation.getDirection().normalize().multiply(-2);
         location = playerLocation.add(direction).toBlockLocation();
-
         Vector3i position = new Vector3i(location.getBlockX(), location.getBlockY(), location.getBlockZ());
-        player.sendBlockChange(location, Material.OAK_SIGN.createBlockData());
-        player.sendSignChange(location, lines);
+        BlockData blockData = Material.OAK_SIGN.createBlockData();
+        BlockState blockState = blockData.createBlockState();
+
+        if (blockState instanceof Sign sign) {
+            sign.setEditable(false);
+            SignSide front = sign.getSide(Side.FRONT);
+            for (int i = 0; i < lines.length; i++) {
+                front.setLine(i, lines[i]);
+            }
+
+            player.sendBlockChange(location, blockData);
+            player.sendBlockUpdate(location, sign);
+        }
+
         WrapperPlayServerOpenSignEditor sign = new WrapperPlayServerOpenSignEditor(position, true);
         PacketEvents.getAPI().getPlayerManager().sendPacket(player, sign);
-
-
     }
 
     public void input(String string) {

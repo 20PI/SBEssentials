@@ -36,7 +36,6 @@ public class InventoryListener implements Listener {
 
             gui.onInventoryClose(event);
             SBEssentials.INSTANCE.getGuiRegistry().remove(event.getPlayer().getUniqueId());
-            SBEssentials.INSTANCE.getPlugin().getLogger().log(Level.WARNING, "closed gui");
         });
     }
 }
