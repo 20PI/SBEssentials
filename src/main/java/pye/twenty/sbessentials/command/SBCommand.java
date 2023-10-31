@@ -1,5 +1,6 @@
 package pye.twenty.sbessentials.command;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -51,8 +52,11 @@ public abstract class SBCommand implements CommandExecutor, TabCompleter {
     public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, org.bukkit.command.@NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (args.length == 1) {
             return new ArrayList<>(commands.keySet());
-        } else if (commands.containsKey(s)) {
-            return List.of(commands.get(s).getAutocomplete());
+        } else if (args.length > 1) {
+            String argument = args[0].toLowerCase();
+            if (commands.containsKey(argument)) {
+                return commands.get(argument).getAutocomplete();
+            }
         }
         return null;
     }

@@ -3,6 +3,9 @@ package pye.twenty.sbessentials.command;
 import lombok.Getter;
 import org.bukkit.command.CommandSender;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 public abstract class SubCommand {
 
@@ -20,7 +23,7 @@ public abstract class SubCommand {
         return args.length >= 1 + requiredArgs;
     }
 
-    public String[] getAutocomplete() {
-        return new String[0];
+    public List<String> getAutocomplete() {
+        return new ArrayList<>();
     }
 }
