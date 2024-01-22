@@ -23,4 +23,19 @@ public final class StringUtils {
         return stack.getItemMeta().hasDisplayName() ? meta.getDisplayName() : capitalizeWord(stack.getType().name().replace("_", " ").toLowerCase());
     }
 
+    public static String formatSeconds(int seconds) {
+        int minutes = seconds / 60;
+        int remainingSeconds = seconds % 60;
+
+        String formattedTime = "";
+
+        if (minutes > 0) {
+            formattedTime += String.format("%02dm ", minutes);
+        }
+
+        formattedTime += String.format("%02ds", remainingSeconds);
+
+        return formattedTime;
+    }
+
 }
